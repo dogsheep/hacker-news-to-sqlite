@@ -70,9 +70,7 @@ def trees(db_path, item_ids):
         except sqlite_utils.db.NotFoundError:
             pass
         item_url = "https://hacker-news.firebaseio.com/v0/item/{}.json".format(id)
-        item = requests.get(
-            item_url
-        ).json()
+        item = requests.get(item_url).json()
         done_count += 1
         if item is None:
             continue
