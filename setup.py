@@ -27,6 +27,6 @@ setup(
         hacker-news-to-sqlite=hacker_news_to_sqlite.cli:cli
     """,
     install_requires=["sqlite-utils", "click", "requests", "tqdm"],
-    extras_require={"test": ["pytest"]},
+    extras_require={"test": ["pytest", "requests-mock"]},
     tests_require=["hacker-news-to-sqlite[test]"],
 )
