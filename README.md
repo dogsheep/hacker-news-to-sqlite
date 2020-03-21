@@ -4,7 +4,7 @@
 [![CircleCI](https://circleci.com/gh/dogsheep/hacker-news-to-sqlite.svg?style=svg)](https://circleci.com/gh/dogsheep/hacker-news-to-sqlite)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/dogsheep/hacker-news-to-sqlite/blob/master/LICENSE)
 
-Create a SQLite database containing data fetced from [Hacker News](https://news.ycombinator.com/).
+Create a SQLite database containing data fetched from [Hacker News](https://news.ycombinator.com/).
 
 ## How to install
 
