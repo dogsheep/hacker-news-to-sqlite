@@ -48,7 +48,7 @@ def test_import_user(tmpdir, requests_mock):
     result = CliRunner().invoke(cli.cli, ["user", db_path, "simonw"])
     assert not result.exception, result.exception
     db = sqlite_utils.Database(db_path)
-    assert {"users", "items"} == set(db.table_names())
+    assert {"users", "items", "users_fts", "items_fts",}.issubset(db.table_names())
     users = list(db["users"].rows)
     items = list(db["items"].rows)
     assert [
@@ -68,5 +68,6 @@ def test_import_user(tmpdir, requests_mock):
             "kids": "[22491039, 22490633, 22491277, 22492319, 22490883, 22491996, 22502812, 22491049, 22491052, 22491001, 22490704]",
             "parent": 22485489,
             "text": "The approach that has worked best for me is...",
+            "title": None,
         }
     ] == items

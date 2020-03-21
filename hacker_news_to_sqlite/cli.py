@@ -20,6 +20,7 @@ def cli():
 def user(db_path, username):
     "Fetch all content submitted by this user"
     db = sqlite_utils.Database(db_path)
+    ensure_tables(db)
     user = requests.get(
         "https://hacker-news.firebaseio.com/v0/user/{}.json".format(username)
     ).json()
@@ -48,6 +49,7 @@ def user(db_path, username):
             db["items"].upsert(
                 item, column_order=("id", "type", "by", "time"), pk="id", alter=True
             )
+    ensure_fts(db)
 
 
 @cli.command()
@@ -60,6 +62,7 @@ def user(db_path, username):
 def trees(db_path, item_ids):
     "Retrieve all content from the trees of which any item_id is a member"
     db = sqlite_utils.Database(db_path)
+    ensure_tables(db)
     to_fetch = set(item_ids)
     done_count = 0
     while to_fetch:
@@ -105,3 +108,27 @@ def trees(db_path, item_ids):
         db["items"].add_foreign_key("parent", "items", "id")
     except sqlite_utils.db.AlterError:
         pass  # Foreign key already exists
+    ensure_fts(db)
+
+
+def ensure_tables(db):
+    # Create tables manually, because if we create them automatically
+    # we may create items without 'title' first, which breaks
+    # when we later call ensure_fts()
+    if "items" not in db.table_names():
+        db["items"].create(
+            {"id": int, "type": str, "by": str, "time": int, "title": str, "text": str},
+            pk="id",
+        )
+    if "users" not in db.table_names():
+        db["users"].create(
+            {"id": str, "created": int, "karma": int, "about": str}, pk="id"
+        )
+
+
+def ensure_fts(db):
+    table_names = set(db.table_names())
+    if "items" in table_names and "items_fts" not in table_names:
+        db["items"].enable_fts(["title", "text"], create_triggers=True)
+    if "users" in table_names and "users_fts" not in table_names:
+        db["users"].enable_fts(["id", "about"], create_triggers=True)
