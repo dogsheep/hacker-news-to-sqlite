@@ -20,3 +20,60 @@ Imports all of your Hacker News submissions and comments into a SQLite database 
     $ hacker-news-to-sqlite trees hacker-news.db 22640038 22643218
 
 Fetches the entire comments tree in which any of those content IDs appears.
+
+## Browsing your data with Datasette
+
+You can use [Datasette](https://datasette.readthedocs.org/) to browse your data. Install Datasette like this:
+
+    $ pip install datasette
+
+Now run it against your `hacker-news.db` file like so:
+
+    $ datasette hacker-news.db
+
+Visit `https://localhost:8001/` to search and explore your data.
+
+You can improve the display of your data usinng the [datasette-render-timestamps](https://github.com/simonw/datasette-render-timestamps) and [datasette-render-html](https://github.com/simonw/datasette-render-html) plugins. Install them like this:
+
+    $ pip install datasette-render-timestamps datasette-render-html
+
+Now save the following configuration in a file called `metadata.json`:
+
+```json
+{
+    "databases": {
+        "hacker-news": {
+            "tables": {
+                "items": {
+                    "plugins": {
+                        "datasette-render-html": {
+                            "columns": [
+                                "text"
+                            ]
+                        },
+                        "datasette-render-timestamps": {
+                            "columns": [
+                                "time"
+                            ]
+                        }
+                    }
+                },
+                "users": {
+                    "plugins": {
+                        "datasette-render-timestamps": {
+                            "columns": [
+                                "created"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
+Run Datasette like this:
+
+    $ datasette -m metadata.json hacker-news.db
+
+The timestamp columns will now be rendered as human-readable dates, and any HTML in your posts will be displayed as HTML.
