@@ -30,7 +30,7 @@ def user(db_path, username):
         )
     # Only do IDs we have not yet fetched
     done = set()
-    if db["items"].exists():
+    if "items" in db.table_names():
         done = set(
             r[0]
             for r in db.conn.execute(
