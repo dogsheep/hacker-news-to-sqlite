@@ -76,4 +76,4 @@ Run Datasette like this:
 
     $ datasette -m metadata.json hacker-news.db
 
-The timestamp columns will now be rendered as human-readable dates, and any HTML in your posts will be displayed as HTML.
+The timestamp columns will now be rendered as human-readable dates, and any HTML in your posts will be displayed as rendered HTML.
