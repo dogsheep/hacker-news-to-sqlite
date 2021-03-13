@@ -1,8 +1,9 @@
 # hacker-news-to-sqlite
 
 [![PyPI](https://img.shields.io/pypi/v/hacker-news-to-sqlite.svg)](https://pypi.org/project/hacker-news-to-sqlite/)
-[![CircleCI](https://circleci.com/gh/dogsheep/hacker-news-to-sqlite.svg?style=svg)](https://circleci.com/gh/dogsheep/hacker-news-to-sqlite)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/dogsheep/hacker-news-to-sqlite/blob/master/LICENSE)
+[![Changelog](https://img.shields.io/github/v/release/dogsheep/hacker-news-to-sqlite?include_prereleases&label=changelog)](https://github.com/dogsheep/hacker-news-to-sqlite/releases)
+[![Tests](https://github.com/dogsheep/hacker-news-to-sqlite/workflows/Test/badge.svg)](https://github.com/dogsheep/hacker-news-to-sqlite/actions?query=workflow%3ATest)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/simonw/hacker-news-to-sqlite/blob/main/LICENSE)
 
 Create a SQLite database containing data fetched from [Hacker News](https://news.ycombinator.com/).
 
