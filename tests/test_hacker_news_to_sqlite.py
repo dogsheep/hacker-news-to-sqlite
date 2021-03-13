@@ -48,7 +48,12 @@ def test_import_user(tmpdir, requests_mock):
     result = CliRunner().invoke(cli.cli, ["user", db_path, "simonw"])
     assert not result.exception, result.exception
     db = sqlite_utils.Database(db_path)
-    assert {"users", "items", "users_fts", "items_fts",}.issubset(db.table_names())
+    assert {
+        "users",
+        "items",
+        "users_fts",
+        "items_fts",
+    }.issubset(db.table_names())
     users = list(db["users"].rows)
     items = list(db["items"].rows)
     assert [

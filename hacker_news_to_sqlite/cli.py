@@ -81,7 +81,11 @@ def trees(db_path, item_ids):
             db["items"].upsert(
                 item, column_order=("id", "type", "by", "time"), pk="id", alter=True
             )
-            print("done: {}, todo: {}".format(done_count, len(to_fetch)))
+            print(
+                "done: {}, in queue: {}, total: {}".format(
+                    done_count, len(to_fetch), done_count + len(to_fetch)
+                )
+            )
         # Anything else we should fetch?
         if (
             "parent" in item
