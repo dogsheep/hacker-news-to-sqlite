@@ -24,11 +24,13 @@ def user(db_path, username):
     user = requests.get(
         "https://hacker-news.firebaseio.com/v0/user/{}.json".format(username)
     ).json()
-    submitted = user.pop("submitted", None) or []
-    with db.conn:
-        db["users"].upsert(
-            user, column_order=("id", "created", "karma", "about"), pk="id"
-        )
+    submitted = []
+    if user:
+        submitted = user.pop("submitted", None) or []
+        with db.conn:
+            db["users"].upsert(
+                user, column_order=("id", "created", "karma", "about"), pk="id"
+            )
     # Only do IDs we have not yet fetched
     done = set()
     if "items" in db.table_names():
