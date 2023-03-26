@@ -124,6 +124,15 @@ def ensure_tables(db):
             {"id": int, "type": str, "by": str, "time": int, "title": str, "text": str},
             pk="id",
         )
+    # includes hidden columns
+    all_column_names = {
+        c[1] for c in db.execute("PRAGMA table_xinfo([items])").fetchall()
+    }
+    if "permalink" not in all_column_names:
+        db.execute(
+            'ALTER TABLE items ADD COLUMN permalink TEXT GENERATED ALWAYS as ("https://news.ycombinator.com/item?id=" || id) VIRTUAL;'
+        )
+
     if "users" not in db.table_names():
         db["users"].create(
             {"id": str, "created": int, "karma": int, "about": str}, pk="id"

@@ -78,3 +78,25 @@ Run Datasette like this:
     $ datasette -m metadata.json hacker-news.db
 
 The timestamp columns will now be rendered as human-readable dates, and any HTML in your posts will be displayed as rendered HTML.
+
+## Package Development
+
+After cloning, install the dependencies (preferably in a virtual environment):
+
+```sh
+pip install --editable '.[test]'
+```
+
+This gives you everything you need to run and develop the package. Running the tests should now work:
+
+```sh
+pytest
+```
+
+As you make changes to the code, you can re-run it using:
+
+```sh
+.venv/bin/hacker-news-to-sqlite
+```
+
+Which should reflect your changes immediately.
