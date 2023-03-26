@@ -72,6 +72,7 @@ def test_import_user(tmpdir, requests_mock):
             "time": 1583377246,
             "kids": "[22491039, 22490633, 22491277, 22492319, 22490883, 22491996, 22502812, 22491049, 22491052, 22491001, 22490704]",
             "parent": 22485489,
+            'permalink': 'https://news.ycombinator.com/item?id=22490556',
             "text": "The approach that has worked best for me is...",
             "title": None,
         }
